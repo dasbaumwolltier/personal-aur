@@ -1,0 +1,26 @@
+pkgbase = wallabag
+	pkgdesc = Self hostable application for saving web pages
+	pkgver = 2.4
+	pkgrel = 1
+	url = http://www.wallabag.org/
+	install = wallabag.install
+	arch = any
+	license = MIT
+	depends = php>=5.6
+	depends = php-gd
+	depends = php-tidy
+	depends = pcre
+	optdepends = php-pgsql: For postgres storage
+	optdepends = php-sqlite: For sqlite storage
+	optdepends = rabbitmq: For async import
+	optdepends = redis: For async import
+	options = !strip
+	backup = etc/webapps/wallabag/parameters.yml
+	backup = usr/share/webapps/wallabag/parameters.yml
+	backup = var/lib/wallabag/data/db/wallabag.sqlite
+	backup = usr/share/webapps/wallabag/data/db/wallabag.sqlite
+	source = git://github.com/wallabag/wallabag.git
+	sha256sums = SKIP
+
+pkgname = wallabag
+
