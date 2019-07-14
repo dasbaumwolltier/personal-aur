@@ -1,0 +1,20 @@
+pkgbase = hipsparse-rocm
+	pkgdesc = ROCm SPARSE marshalling library
+	pkgver = 2.5
+	pkgrel = 1
+	url = https://github.com/ROCmSoftwarePlatform/hipSPARSE
+	arch = x86_64
+	license = MIT
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = hcc>=2.5.0
+	depends = rocsparse
+	provides = hipSPARSE
+	provides = SPARSE
+	source = LICENSE
+	source = https://github.com/ROCmSoftwarePlatform/hipSPARSE/archive/rocm-2.5.tar.gz
+	sha256sums = 869e63f501390117ceeba1c174c8b9acd8b888b9db36ba06957bd253e2fb31b3
+	sha256sums = 2e4c36f0a640a0e1144af38a2c5fad21b13d8f4ef023a687ec82d93a44a7a8af
+
+pkgname = hipsparse-rocm
+
