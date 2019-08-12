@@ -9,7 +9,7 @@ arch=(x86_64)
 license=('Apache-2.0')
 provides=(grafana-loki)
 makedepends=("go>=1.10")
-depends=("go>=1.10" promtail)
+depends=("go>=1.10")
 source=("git+https://github.com/grafana/loki.git")
 sha256sums=("SKIP")
 
