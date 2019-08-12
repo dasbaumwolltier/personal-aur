@@ -1,0 +1,47 @@
+# Maintainer: Gabriel Guldner <gabriel at guldner dot eu>
+pkgname=grafana-promtail
+_pkgname=promtail
+pkgver=0.12.1
+pkgrel=1
+pkgdesc="Like Prometheus, but for logs. Promtail is the agent, responsible for gathering logs and sending them to loki."
+url="https://grafana.com/loki"
+arch=(x86_64)
+license=('Apache-2.0')
+provides=(grafana-promtail)
+makedepends=("go>=1.10")
+depends=("go>=1.10")
+source=("git+https://github.com/grafana/loki.git")
+sha256sums=("SKIP")
+
+prepare() {
+  cd "$srcdir/$_pkgname"
+
+  git checkout tags/v$pkgver
+  git reset --hard HEAD
+  git clean -dxf
+
+  cd ..
+  mkdir -p gopath/src/github.com/grafana/loki
+  ln -rTsf "$_pkgname" gopath/src/github.com/grafana/loki
+  export GOPATH="$srcdir"/gopath
+  cd gopath/src/github.com/grafana/loki
+  dep ensure
+}
+
+build() {
+  export GOPATH="$srcdir"/gopath
+
+  cd $srcdir/gopath/github.com/grafana/loki
+  go build ./cmd/promtail
+}
+
+check() {
+  export GOPATH="$srcdir"/gopath
+
+  cd $srcdir/gopath/github.com/grafana/loki
+  go test ./...
+}
+
+package() {
+  install -Dm755 gopath/bin/$_pkgname "$pkgdir"/usr/bin/$_pkgname
+}
