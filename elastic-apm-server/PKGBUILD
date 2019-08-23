@@ -1,0 +1,51 @@
+#Maintainer: Gabriel Guldner <gabriel at guldner dot eu>
+
+pkgname=elastic-apm-server
+_pkgname=apm-server
+pkgver=7.1.1
+pkgrel=1
+pkgdesc='Browser based analytics and search dashboard for Elasticsearch'
+url='https://www.elastic.co/products/apm'
+arch=('x86_64')
+license=('custom:Elastic')
+depends=('glibc')
+optdepends=('elasticsearch' 'kibana')
+provides=('elastic-apm-server')
+conflicts=('elastic-apm-server')
+backup=('etc/elastic-apm-server/elastic-apm-server.yml')
+options=('!strip' 'emptydirs')
+source=(https://artifacts.elastic.co/downloads/$_pkgname/$_pkgname-${pkgver}-linux-$CARCH.tar.gz
+        elastic-apm-server.service
+        tmpfile.conf
+        user.conf)
+sha512sums=('324e3bc6120e6e768a912c361a288cd1bf70cb3460d8362fd6b75caf23afeeb0083a13f0afaa1125f3ecbf41a446ac7cb2ee791a41aa3c9de44c40706084cee2'
+            'e368e0e67cbe18311d85d6a343dcf4ecad56dd52629b38cffd1a31792a2c78e4f796b283619bd662847bc840f17ca7aae58a43a33d8e40d3c75ed9b6f82a93a5'
+            '4f56efa6dca5e44f0dfad3e13a776ef2b88a94cf2800ecc652e118f4f5ca32d6aaf6ab98b0805b5ce36c1bf0cc7db87337dde1cbea66504e8ee07d0dfdbb6888'
+            '3cad1a40c9ff1bf7c079c99bb41ad2d0d66890b096101fc5434ff32be0686b0e1d15da4ce8cf818ef2c1c36e374bc7938d428e22a06c6ffcb76a0b097698f761')
+
+#prepare() {
+#  cd $_pkgname-${pkgver}-linux-x86_64
+#}
+
+package() {
+  cd $_pkgname-${pkgver}-linux-$CARCH
+
+  install -dm755 "$pkgdir"/usr/share/$pkgname
+  install -Dm755 apm-server "$pkgdir"/usr/share/$pkgname/bin/$pkgname
+  install -Dm644 LICENSE.* "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+  install -Dm644 apm-server.yml "$pkgdir"/etc/elastic-apm-server/$pkgname.yml
+  install -Dm644 fields.yml "$pkgdir"/etc/$pkgname/
+  install -Dm644 ingest/pipeline/definition.json "$pkgdir"/etc/$pkgname/ingest/pipeline/definition.json
+
+  install -dm755 {"$pkgdir/var/lib","$pkgdir/var/log"}/$pkgname
+  install -dm755 "$pkgdir"/usr/bin
+  #install -dm755 "$pkgdir"/usr/share/kibana
+  #install -Dm644 data/meta.json "$pkgdir"/var/lib/$pkgname/meta.json
+  ln -s ../share/$pkgname/bin/$pkgname "$pkgdir"/usr/bin/$pkgname
+  
+  install -Dm644 "$srcdir"/elastic-apm-server.service "$pkgdir"/usr/lib/systemd/system/elastic-apm-server.service
+  install -Dm644 "${srcdir}/user.conf" "${pkgdir}/usr/lib/sysusers.d/elasticapm.conf"
+  install -Dm644 "${srcdir}/tmpfile.conf" "${pkgdir}/usr/lib/tmpfiles.d/elasticapm.conf"
+}
+

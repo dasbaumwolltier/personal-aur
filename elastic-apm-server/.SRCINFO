@@ -1,0 +1,26 @@
+pkgbase = elastic-apm-server
+	pkgdesc = Browser based analytics and search dashboard for Elasticsearch
+	pkgver = 7.1.1
+	pkgrel = 1
+	url = https://www.elastic.co/products/apm
+	arch = x86_64
+	license = custom:Elastic
+	depends = glibc
+	optdepends = elasticsearch
+	optdepends = kibana
+	provides = elastic-apm-server
+	conflicts = elastic-apm-server
+	options = !strip
+	options = emptydirs
+	backup = etc/elastic-apm-server/elastic-apm-server.yml
+	source = https://artifacts.elastic.co/downloads/apm-server/apm-server-7.1.1-linux-x86_64.tar.gz
+	source = elastic-apm-server.service
+	source = tmpfile.conf
+	source = user.conf
+	sha512sums = 324e3bc6120e6e768a912c361a288cd1bf70cb3460d8362fd6b75caf23afeeb0083a13f0afaa1125f3ecbf41a446ac7cb2ee791a41aa3c9de44c40706084cee2
+	sha512sums = e368e0e67cbe18311d85d6a343dcf4ecad56dd52629b38cffd1a31792a2c78e4f796b283619bd662847bc840f17ca7aae58a43a33d8e40d3c75ed9b6f82a93a5
+	sha512sums = 4f56efa6dca5e44f0dfad3e13a776ef2b88a94cf2800ecc652e118f4f5ca32d6aaf6ab98b0805b5ce36c1bf0cc7db87337dde1cbea66504e8ee07d0dfdbb6888
+	sha512sums = 3cad1a40c9ff1bf7c079c99bb41ad2d0d66890b096101fc5434ff32be0686b0e1d15da4ce8cf818ef2c1c36e374bc7938d428e22a06c6ffcb76a0b097698f761
+
+pkgname = elastic-apm-server
+

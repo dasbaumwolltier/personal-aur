@@ -1,0 +1,14 @@
+[Unit]
+Description=Kibana - dashboard for Elasticsearch
+After=network.target elasticsearch.service
+
+[Service]
+User=elasticapm
+Group=elasticapm
+ExecStart=/usr/bin/elastic-apm-server run -c elastic-apm-server.yml --path.config /etc/elastic-apm-server --path.data /var/lib/elastic-apm-server --path.home /usr/share/elastic-apm-server --path.logs /var/log/elastic-apm-server
+PrivateTmp=true
+NoNewPrivileges=true
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
