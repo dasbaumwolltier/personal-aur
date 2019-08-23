@@ -34,7 +34,8 @@ package() {
   install -Dm755 apm-server "$pkgdir"/usr/share/$pkgname/bin/$pkgname
   install -Dm644 LICENSE.* "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
-  install -Dm644 apm-server.yml "$pkgdir"/etc/elastic-apm-server/$pkgname.yml
+  install -dm750 "$pkgdir"/etc/$pkgname
+  install -Dm644 apm-server.yml "$pkgdir"/etc/$pkgname/$pkgname.yml
   install -Dm644 fields.yml "$pkgdir"/etc/$pkgname/
   install -Dm644 ingest/pipeline/definition.json "$pkgdir"/etc/$pkgname/ingest/pipeline/definition.json
 
